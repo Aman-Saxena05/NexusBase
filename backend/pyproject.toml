@@ -38,6 +38,8 @@ dependencies = [
     "langchain-text-splitters>=0.3.0",
     "tenacity>=8.2.0",
     "passlib[bcrypt]>=1.7.4",
+    "bcrypt<5",
+    "email-validator>=2.0.0",
 ]
 
 [project.optional-dependencies]

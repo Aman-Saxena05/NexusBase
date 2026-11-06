@@ -68,7 +68,7 @@ def _truncate_text(text: str, max_tokens: int = _MAX_EMBEDDING_TOKENS) -> str:
 )
 def _embed_batch(client: OpenAI, texts: list[str], model: str) -> list[list[float]]:
     """Embed a single batch with retry logic."""
-    response = client.embeddings.create(model=model, input=texts)
+    response = client.embeddings.create(model=model, input=texts, dimensions=1536)
     return [item.embedding for item in response.data]
 
 

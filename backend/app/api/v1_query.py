@@ -43,7 +43,7 @@ async def query(
     try:
         # Step 1: Embed query for Semantic Cache check
         from app.ingestion.embedder import embed_query
-        from app.infrastructure.redis_cache import check_cache, store_cache
+        from app.retrieval.semantic_cache import check_cache, store_cache
         
         query_embedding = embed_query(request.query)
         

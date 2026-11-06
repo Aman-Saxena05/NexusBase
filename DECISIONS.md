@@ -145,6 +145,121 @@ database.
 
 ---
 
+## D-006 — Correction to D-005 item 5: the `users` table does exist
+
+- **Date:** 2026-11-06
+- **Step:** 0
+- **Context:** D-005 listed "no `users` table" as a blocker. That was wrong.
+  `backend/app/infrastructure/database.py::init_pool` creates `users`, `tickets` and
+  `feedback` when the app starts. I had only searched the SQL files.
+- **Decision:** Supersede D-005 item 5. No fix is needed. Verified: register and login
+  work against a fresh database.
+- **Alternatives considered:** None. This is a factual correction.
+- **Why:** The rule is to never edit past entries.
+
+---
+
+## D-007 — Owner approved the fixes; two more blockers found and fixed
+
+- **Date:** 2026-11-06
+- **Step:** 0
+- **Context:** The owner replied "yes to fixes" to D-005, then asked me to "work all the
+  changes around" the API key, which they will add manually. While applying the fixes
+  I found two more blockers (items 4 and 5 below). Given that instruction I fixed them
+  rather than stopping again, and I'm reporting them here.
+- **Decision:** These one-line changes:
+  1. `backend/pyproject.toml`: add `email-validator>=2.0.0`, which `EmailStr` needs
+     (D-005 item 2).
+  2. `backend/app/services/auth_service.py`: `from jose import JWTError` becomes
+     `from jwt import PyJWTError as JWTError` (D-005 item 3).
+  3. `backend/app/api/v1_query.py`: import `check_cache`/`store_cache` from the
+     existing `app.retrieval.semantic_cache` instead of the missing
+     `app.infrastructure.redis_cache` (D-005 item 4).
+  4. **New.** `backend/app/retrieval/hybrid_search.py`: import `RetrievedChunk` from
+     `app.domain.rag` instead of `app.shared.models`. The two are duplicate classes,
+     and Pydantic v2 rejected the shared one inside `domain.rag.QueryResponse`
+     ("Input should be a valid dictionary or instance of RetrievedChunk"), so every
+     query that returned chunks would have failed with a 500. Reproduced in isolation
+     before the fix.
+  5. **New.** `backend/pyproject.toml`: add `bcrypt<5`. With bcrypt 5.0.0,
+     passlib 1.7.4 raises `ValueError: password cannot be longer than 72 bytes` on
+     every hash, so registration fails. This is an upper-bound pin, not an upgrade.
+- **Alternatives considered:**
+  - For (2): add a `python-jose` dependency. Rejected: the tokens are created by
+    PyJWT (`app/core/security.py`), so `jose.JWTError` would never catch their
+    errors, and bad tokens would give 500 instead of 401.
+  - For (4): change every `app.shared.models` import. Rejected as a larger change than
+    needed; only the hybrid-search path feeds the response.
+  - For (5): replace passlib. Rejected as a refactor.
+- **Why:** These are the smallest changes that let the documented flow
+  (register, log in, query) run.
+
+---
+
+## D-008 — Free provider: Gemini (Google AI Studio) instead of OpenAI
+
+- **Date:** 2026-11-06
+- **Step:** 0
+- **Context:** The owner wants free models. The code calls OpenAI (embeddings and chat)
+  through the `openai` SDK and Gemini through `google-generativeai`.
+- **Decision:** Use one free AI Studio key for both, configured only through
+  environment variables, plus one code line:
+  - `OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/`, read
+    natively by the `openai` SDK and passed into the container by compose `env_file`.
+    Set `OPENAI_API_KEY` and `GEMINI_API_KEY` to the same AI Studio key.
+  - `EMBEDDING_MODEL=gemini-embedding-001`.
+  - `gemini-2.5-flash-lite` for LLM, grader, router, extractor and vision.
+  - Code: `backend/app/ingestion/embedder.py` passes `dimensions=1536` to
+    `embeddings.create`. `gemini-embedding-001` defaults to 3072 dimensions, but the
+    table is `vector(1536)` and pgvector HNSW indexes cap at 2000. OpenAI
+    `text-embedding-3-small` accepts the same parameter, so switching back still works.
+  - Documented as an active block at the end of `.env.example`. The original OpenAI
+    and Gemini-3 model lines are left in place, commented out, above it.
+- **Alternatives considered:**
+  - Local Ollama: rejected. Gemini nodes use the Google SDK and can't be redirected
+    without code changes, and CPU inference is slow.
+  - Groq or OpenRouter: rejected. No free embeddings, and the Gemini nodes would still
+    need a key.
+  - `gemini-2.5-flash`: rejected. It "thinks" by default, and thinking tokens count
+    against the grader's `max_output_tokens=5`, which would give empty grades. Every
+    chunk would then be graded "no".
+  - Changing the vector column dimension: rejected. That means schema, cache and
+    zero-vector changes in several files.
+- **Why:** Zero cost, one key, and a minimal code footprint.
+- **Not verified:** No key is available in this session, so I haven't confirmed that
+  Google's OpenAI-compatible endpoint honours `dimensions`, or that these model names
+  are still served. Check model names with
+  `curl -H "x-goog-api-key: $KEY" https://generativelanguage.googleapis.com/v1beta/models`.
+  Free-tier rate limits may cause grading failures, which count as "irrelevant".
+
+---
+
+## D-009 — Step 0 verification: what was and wasn't checked
+
+- **Date:** 2026-11-06
+- **Step:** 0
+- **Context:** In this cloud sandbox, Docker builds have no network (D-005 item 1), so
+  `docker compose up --build` can't build the backend image here. On a normal machine
+  it can.
+- **Decision:** For verification only, I ran `db`, `neo4j` and `redis` through
+  `docker compose up -d db neo4j redis`, and ran the backend on the host with the
+  project's own dependencies, using `PYTHONPATH=.:../packages` to mirror the
+  container's `/app:/packages`. No repo file was changed for this.
+- **Results:**
+  - Startup works: Postgres pool, Neo4j driver and Redis cache index all initialise.
+  - `/health` and `/health/vector` are healthy.
+  - `/v1/auth/register` and `/login` work. A bad token returns 401.
+  - `/v1/query` reaches the embedding step and fails there because `tiktoken` can't
+    download `cl100k_base` (the sandbox proxy blocks `openaipublic.blob.core.windows.net`).
+    That's sandbox-only. With no real key, the next call would fail anyway.
+- **Alternatives considered:** Rewriting the Dockerfile to work offline. Rejected as
+  out of scope.
+- **Why:** This verifies everything except steps that need a live LLM key.
+- **Owner action:** Run `docker compose up --build` with real keys in `backend/.env`
+  (see `.env.example`).
+
+---
+
 ## Template (copy below this line for new entries)
 
 ```

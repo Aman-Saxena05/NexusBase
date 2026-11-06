@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError
+from jwt import PyJWTError as JWTError
 from asyncpg import Pool
 
 from app.core.security import verify_password, get_password_hash, create_access_token, decode_access_token
