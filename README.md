@@ -1,5 +1,16 @@
 [![Stack](https://img.shields.io/badge/Status-Portfolio%20Project-orange?style=for-the-badge)](https://github.com/unnita1235-code/NexusBase)# NexusBase: Enterprise RAG Architecture
 
+## What I changed
+
+This is a fork of [unnita1235-code/NexusBase](https://github.com/unnita1235-code/NexusBase) (MIT); all original work and credit belong to the upstream author.
+
+- **Corpus:** 39 FastAPI tutorial pages (MIT, Markdown) in [`corpus/`](corpus/), source in [`corpus/SOURCE.txt`](corpus/SOURCE.txt). Ingest via the existing API: `for f in corpus/*.md; do curl -s -F "file=@$f" -F access_level=public http://localhost:8000/v1/ingest; echo; done`
+- **Free models:** optional Google AI Studio (Gemini) setup in [`.env.example`](.env.example); also copy `.env` to `backend/.env` (compose reads that path).
+- **Fixes:** small startup fixes (missing deps, two broken imports, bcrypt pin, 1536-dim embeddings).
+- **Eval harness:** 20 draft questions in [`eval/questions.json`](eval/questions.json). Run `python3 eval/run_eval.py` (stdlib only, stack running); results go to [`eval/results.md`](eval/results.md).
+- **Current results:** retrieval hit rate **0.00**, keyword pass rate **0.00** (0/20 each). The first run had no LLM API key, so every query failed before retrieval; re-run once a key is set.
+- **Every decision, with alternatives and reasons:** [`DECISIONS.md`](DECISIONS.md).
+
 
 [![Stack](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Stack](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)

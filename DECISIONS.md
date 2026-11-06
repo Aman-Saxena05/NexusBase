@@ -409,6 +409,30 @@ database.
 
 ---
 
+## D-016 — Task 3: README section placement and the missing LICENSE file
+
+- **Date:** 2026-11-06
+- **Step:** 3
+- **Context:** The instructions say to keep the LICENSE and upstream attribution intact.
+  The fork has **no LICENSE file**; the README only says "licensed under the MIT
+  License". The upstream attribution is the badge and the links to
+  `unnita1235-code/NexusBase`.
+- **Decision:**
+  - Put "What I changed" directly under the title line, before the badges: 7 content
+    lines, 13 lines including blank lines.
+  - Leave the badge, upstream links and License section untouched.
+  - Don't add a LICENSE file.
+- **Alternatives considered:**
+  - Add an MIT LICENSE file. Rejected: the copyright holder's name and year aren't
+    stated in the repo, so I'd be guessing, and it wasn't asked for.
+  - Put the section after the badges. Rejected: "near the top" is better served
+    under the title.
+- **Why:** Keeps attribution intact without inventing licence details. **Owner
+  action:** consider asking upstream for (or adding) a LICENSE file with the correct
+  copyright holder.
+
+---
+
 ## Template (copy below this line for new entries)
 
 ```
