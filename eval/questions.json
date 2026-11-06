@@ -1,0 +1,26 @@
+{
+  "status": "DRAFT",
+  "note": "Drafted from corpus/ (FastAPI tutorial docs) for owner review. Every required keyword was checked to appear in its expected_source file.",
+  "questions": [
+    {"id": "q01", "question": "How can a FastAPI endpoint run a task after the response has been returned to the client?", "expected_source": "background-tasks.md", "required_keywords": ["BackgroundTasks", "add_task"]},
+    {"id": "q02", "question": "Which middleware should I use so a browser frontend on another origin can call my FastAPI backend, and which setting lists the permitted origins?", "expected_source": "cors.md", "required_keywords": ["CORSMiddleware", "allow_origins"]},
+    {"id": "q03", "question": "Which parameter of a path operation decorator sets the HTTP status code returned in the response?", "expected_source": "response-status-code.md", "required_keywords": ["status_code"]},
+    {"id": "q04", "question": "How do you return an HTTP error such as 404 Not Found to the client from a path operation?", "expected_source": "handling-errors.md", "required_keywords": ["HTTPException", "raise"]},
+    {"id": "q05", "question": "How do you serve static files from a directory in a FastAPI application?", "expected_source": "static-files.md", "required_keywords": ["StaticFiles", "mount"]},
+    {"id": "q06", "question": "Which package must be installed before you can use FastAPI's TestClient?", "expected_source": "testing.md", "required_keywords": ["httpx"]},
+    {"id": "q07", "question": "How do you restrict a path parameter to a fixed set of predefined values?", "expected_source": "path-params.md", "required_keywords": ["Enum"]},
+    {"id": "q08", "question": "In the tutorial's query parameter example, what are the default values of skip and limit?", "expected_source": "query-params.md", "required_keywords": ["skip", "limit", "10"]},
+    {"id": "q09", "question": "What advantages does UploadFile have over declaring an uploaded file as bytes?", "expected_source": "request-files.md", "required_keywords": ["UploadFile", "spooled"]},
+    {"id": "q10", "question": "In the OAuth2 password flow, which fields must be sent, and how must they be sent?", "expected_source": "request-forms.md", "required_keywords": ["username", "password", "form"]},
+    {"id": "q11", "question": "Which decorator do you use to create an HTTP middleware function in FastAPI?", "expected_source": "middleware.md", "required_keywords": ["@app.middleware(\"http\")"]},
+    {"id": "q12", "question": "What does jsonable_encoder return when given a Pydantic model?", "expected_source": "encoder.md", "required_keywords": ["jsonable_encoder", "dict"]},
+    {"id": "q13", "question": "For a partial update of an item, which HTTP method is recommended, and which model_dump option leaves out fields that were not sent?", "expected_source": "body-updates.md", "required_keywords": ["PATCH", "exclude_unset"]},
+    {"id": "q14", "question": "How does FastAPI handle underscores in header parameter names, and how can you disable that?", "expected_source": "header-params.md", "required_keywords": ["convert_underscores", "hyphen"]},
+    {"id": "q15", "question": "What do you import from fastapi to declare a cookie parameter in a path operation?", "expected_source": "cookie-params.md", "required_keywords": ["Cookie"]},
+    {"id": "q16", "question": "Which path operation decorator parameter declares the model used for the response?", "expected_source": "response-model.md", "required_keywords": ["response_model"]},
+    {"id": "q17", "question": "How can you add descriptions to the tags shown in the automatic API docs?", "expected_source": "metadata.md", "required_keywords": ["openapi_tags"]},
+    {"id": "q18", "question": "Which library does the SQL databases tutorial use, and what is it built on top of?", "expected_source": "sql-databases.md", "required_keywords": ["SQLModel", "SQLAlchemy"]},
+    {"id": "q19", "question": "When splitting a large FastAPI app into multiple files, what do you use to group path operations and attach them to the main app?", "expected_source": "bigger-applications.md", "required_keywords": ["APIRouter", "include_router"]},
+    {"id": "q20", "question": "How do you require a numeric path parameter to be greater than or equal to 1?", "expected_source": "path-params-numeric-validations.md", "required_keywords": ["Path", "ge=1"]}
+  ]
+}

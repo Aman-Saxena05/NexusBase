@@ -340,6 +340,75 @@ database.
 
 ---
 
+## D-013 — Task 2: question set design
+
+- **Date:** 2026-11-06
+- **Step:** 2
+- **Context:** I needed 20 questions, each with one `expected_source` and 1–4
+  `required_keywords`.
+- **Decision:**
+  - 20 questions, each from a different corpus file, so `expected_source` is
+    unambiguous.
+  - Keywords are API names or literal facts that appear verbatim in the source.
+    A script checked every keyword is present (case-insensitive) in its source file.
+  - I tightened two keywords that would match almost any answer: `ge` became `ge=1`
+    (q20), and `app.middleware` + `http` became `@app.middleware("http")` (q11).
+  - Wrapper: `{"status": "DRAFT", "note": ..., "questions": [...]}`.
+- **Alternatives considered:** Several questions per file (rejected: fewer distinct
+  sources tested). Free-text expected answers (rejected: the spec asks for keywords).
+- **Why:** Keeps both metrics mechanical and checkable. The owner will review it.
+- **Known weak spots:** q08 keyword `10` is short. q10 keyword `form` is generic.
+  Some answers may phrase API names differently (e.g. `exclude_unset=True` still
+  matches, but a paraphrase would not).
+
+---
+
+## D-014 — Task 2: eval harness behaviour
+
+- **Date:** 2026-11-06
+- **Step:** 2
+- **Context:** The spec left auth, rate limiting and error handling to me.
+- **Decision:** `eval/run_eval.py` (standard library only):
+  - Registers or logs in an eval user (`EVAL_EMAIL`/`EVAL_PASSWORD`, defaults
+    `eval@example.com` / `evalpass123`), because `/v1/query` requires a bearer token.
+  - Uses `access_level=public`, matching the ingest command.
+  - Retrieved sources = de-duplicated `chunks[].source`, in order.
+  - Keyword check = case-insensitive substring match.
+  - Errors count as misses on both metrics; denominator is always 20.
+  - Default `--delay 5` seconds between questions for free-tier rate limits.
+  - Outputs go to `eval/results.json` and `eval/results.md`.
+  - Command: `python3 eval/run_eval.py`.
+- **Alternatives considered:** `requests`/`httpx` (they are project dependencies, but
+  stdlib avoids needing the backend venv). Excluding errored questions from the
+  denominator (rejected: it would hide failures).
+- **Why:** One command, no installs, honest denominators.
+- **Caveat:** The API returns only chunks the Gemini grader marked relevant, so
+  "retrieval hit rate" measures search plus grading. The semantic cache (cosine ≥
+  0.98) means a re-run can return cached answers; `graph_path` then starts with
+  `semantic_cache_hit`.
+- **Verified:** Against a throwaway stub API with planted answers, the harness gave
+  exactly the expected 10/20 hits and 5/20 keyword passes. The stub was never
+  committed, and the real results were restored afterwards.
+
+---
+
+## D-015 — Task 2: first eval run (no API key available)
+
+- **Date:** 2026-11-06
+- **Step:** 2
+- **Context:** I ran the eval once against the real stack as instructed. No LLM key is
+  available in this session (the owner will add it), and the sandbox blocks
+  `tiktoken`'s encoding download.
+- **Decision:** Commit the run as-is: **retrieval hit rate 0/20 = 0.00, keyword pass
+  rate 0/20 = 0.00**. All 20 questions returned HTTP 500 at the query-embedding step,
+  before any retrieval. Nothing was tuned.
+- **Alternatives considered:** Skip the run, or fabricate plausible numbers. Rejected.
+- **Why:** The rule is to report numbers as they are. This baseline reflects the
+  environment, not retrieval quality. Re-run `python3 eval/run_eval.py` after
+  setting the key and ingesting the corpus (D-012) for a meaningful result.
+
+---
+
 ## Template (copy below this line for new entries)
 
 ```

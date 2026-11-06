@@ -1,0 +1,426 @@
+{
+  "summary": {
+    "run_at": "2026-11-06T10:53:30+00:00",
+    "api": "http://localhost:8000",
+    "access_level": "public",
+    "questions_status": "DRAFT",
+    "total": 20,
+    "retrieval_hits": 0,
+    "retrieval_hit_rate": 0.0,
+    "keyword_passes": 0,
+    "keyword_pass_rate": 0.0,
+    "errors": 20
+  },
+  "results": [
+    {
+      "id": "q01",
+      "question": "How can a FastAPI endpoint run a task after the response has been returned to the client?",
+      "expected_source": "background-tasks.md",
+      "required_keywords": [
+        "BackgroundTasks",
+        "add_task"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "BackgroundTasks",
+        "add_task"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 248
+    },
+    {
+      "id": "q02",
+      "question": "Which middleware should I use so a browser frontend on another origin can call my FastAPI backend, and which setting lists the permitted origins?",
+      "expected_source": "cors.md",
+      "required_keywords": [
+        "CORSMiddleware",
+        "allow_origins"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "CORSMiddleware",
+        "allow_origins"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 244
+    },
+    {
+      "id": "q03",
+      "question": "Which parameter of a path operation decorator sets the HTTP status code returned in the response?",
+      "expected_source": "response-status-code.md",
+      "required_keywords": [
+        "status_code"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "status_code"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 253
+    },
+    {
+      "id": "q04",
+      "question": "How do you return an HTTP error such as 404 Not Found to the client from a path operation?",
+      "expected_source": "handling-errors.md",
+      "required_keywords": [
+        "HTTPException",
+        "raise"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "HTTPException",
+        "raise"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 235
+    },
+    {
+      "id": "q05",
+      "question": "How do you serve static files from a directory in a FastAPI application?",
+      "expected_source": "static-files.md",
+      "required_keywords": [
+        "StaticFiles",
+        "mount"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "StaticFiles",
+        "mount"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 249
+    },
+    {
+      "id": "q06",
+      "question": "Which package must be installed before you can use FastAPI's TestClient?",
+      "expected_source": "testing.md",
+      "required_keywords": [
+        "httpx"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "httpx"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 262
+    },
+    {
+      "id": "q07",
+      "question": "How do you restrict a path parameter to a fixed set of predefined values?",
+      "expected_source": "path-params.md",
+      "required_keywords": [
+        "Enum"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "Enum"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 137
+    },
+    {
+      "id": "q08",
+      "question": "In the tutorial's query parameter example, what are the default values of skip and limit?",
+      "expected_source": "query-params.md",
+      "required_keywords": [
+        "skip",
+        "limit",
+        "10"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "skip",
+        "limit",
+        "10"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 267
+    },
+    {
+      "id": "q09",
+      "question": "What advantages does UploadFile have over declaring an uploaded file as bytes?",
+      "expected_source": "request-files.md",
+      "required_keywords": [
+        "UploadFile",
+        "spooled"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "UploadFile",
+        "spooled"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 252
+    },
+    {
+      "id": "q10",
+      "question": "In the OAuth2 password flow, which fields must be sent, and how must they be sent?",
+      "expected_source": "request-forms.md",
+      "required_keywords": [
+        "username",
+        "password",
+        "form"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "username",
+        "password",
+        "form"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 244
+    },
+    {
+      "id": "q11",
+      "question": "Which decorator do you use to create an HTTP middleware function in FastAPI?",
+      "expected_source": "middleware.md",
+      "required_keywords": [
+        "@app.middleware(\"http\")"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "@app.middleware(\"http\")"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 249
+    },
+    {
+      "id": "q12",
+      "question": "What does jsonable_encoder return when given a Pydantic model?",
+      "expected_source": "encoder.md",
+      "required_keywords": [
+        "jsonable_encoder",
+        "dict"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "jsonable_encoder",
+        "dict"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 255
+    },
+    {
+      "id": "q13",
+      "question": "For a partial update of an item, which HTTP method is recommended, and which model_dump option leaves out fields that were not sent?",
+      "expected_source": "body-updates.md",
+      "required_keywords": [
+        "PATCH",
+        "exclude_unset"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "PATCH",
+        "exclude_unset"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 251
+    },
+    {
+      "id": "q14",
+      "question": "How does FastAPI handle underscores in header parameter names, and how can you disable that?",
+      "expected_source": "header-params.md",
+      "required_keywords": [
+        "convert_underscores",
+        "hyphen"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "convert_underscores",
+        "hyphen"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 279
+    },
+    {
+      "id": "q15",
+      "question": "What do you import from fastapi to declare a cookie parameter in a path operation?",
+      "expected_source": "cookie-params.md",
+      "required_keywords": [
+        "Cookie"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "Cookie"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 206
+    },
+    {
+      "id": "q16",
+      "question": "Which path operation decorator parameter declares the model used for the response?",
+      "expected_source": "response-model.md",
+      "required_keywords": [
+        "response_model"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "response_model"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 230
+    },
+    {
+      "id": "q17",
+      "question": "How can you add descriptions to the tags shown in the automatic API docs?",
+      "expected_source": "metadata.md",
+      "required_keywords": [
+        "openapi_tags"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "openapi_tags"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 236
+    },
+    {
+      "id": "q18",
+      "question": "Which library does the SQL databases tutorial use, and what is it built on top of?",
+      "expected_source": "sql-databases.md",
+      "required_keywords": [
+        "SQLModel",
+        "SQLAlchemy"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "SQLModel",
+        "SQLAlchemy"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 235
+    },
+    {
+      "id": "q19",
+      "question": "When splitting a large FastAPI app into multiple files, what do you use to group path operations and attach them to the main app?",
+      "expected_source": "bigger-applications.md",
+      "required_keywords": [
+        "APIRouter",
+        "include_router"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "APIRouter",
+        "include_router"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 286
+    },
+    {
+      "id": "q20",
+      "question": "How do you require a numeric path parameter to be greater than or equal to 1?",
+      "expected_source": "path-params-numeric-validations.md",
+      "required_keywords": [
+        "Path",
+        "ge=1"
+      ],
+      "retrieved_sources": [],
+      "answer": "",
+      "retrieval_hit": false,
+      "keyword_pass": false,
+      "missing_keywords": [
+        "Path",
+        "ge=1"
+      ],
+      "graph_path": [],
+      "http_status": 500,
+      "error": "{\"detail\": \"Query failed: HTTPSConnectionPool(host='openaipublic.blob.core.windows.net', port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))\"}",
+      "latency_ms": 293
+    }
+  ]
+}
