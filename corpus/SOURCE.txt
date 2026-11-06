@@ -1,0 +1,14 @@
+Corpus source
+=============
+
+These Markdown files are copied unchanged from the FastAPI documentation:
+
+  Repository : https://github.com/fastapi/fastapi
+  Path       : docs/en/docs/tutorial/*.md  (top level only; index.md excluded)
+  Commit     : 1ca09c13584ca45aa0921e5e40b31d49c5e3135a
+  Copied on  : 2026-11-06
+  Licence    : MIT, Copyright (c) 2018 Sebastián Ramírez (see LICENSE-fastapi.txt)
+
+Note: the docs reference code examples with MkDocs include markers such as
+{* ../../docs_src/... *}. Those example files are not part of this corpus, so
+the code itself is not ingested, only the prose and inline snippets.

@@ -260,6 +260,86 @@ database.
 
 ---
 
+## D-010 — Task 1: corpus layout and file selection
+
+- **Date:** 2026-11-06
+- **Step:** 1
+- **Context:** D-002 chose the FastAPI tutorial docs. The pipeline stores chunks with
+  `source` = the file's *basename*, and delta sync purges by `source`. Files with the
+  same basename (`tutorial/index.md`, `tutorial/security/index.md`, ...) would
+  therefore overwrite each other.
+- **Decision:** `corpus/` holds the 39 top-level `docs/en/docs/tutorial/*.md` files from
+  fastapi commit `1ca09c1`, unchanged. I excluded `index.md` (a navigation page) and the
+  `dependencies/` and `security/` subfolders (they have colliding basenames). Provenance
+  and the MIT licence are in `corpus/SOURCE.txt` and `corpus/LICENSE-fastapi.txt`. Those
+  are `.txt` so the `*.md` ingest loop skips them; the endpoint would also reject `.txt`.
+- **Alternatives considered:** Include the subfolders, renamed with a prefix. Rejected:
+  that modifies the source, and 39 files already falls within the 10–40 range.
+- **Why:** Unique filenames give an unambiguous `expected_source` for the eval.
+- **Known limitation:** The pages reference code examples with MkDocs include markers
+  (`{* ../../docs_src/... *}`), and those files aren't copied, so example code isn't
+  in the corpus.
+
+---
+
+## D-011 — Task 1: bundled sample data
+
+- **Date:** 2026-11-06
+- **Step:** 1
+- **Context:** The instructions say to disable or move bundled sample data so only the
+  corpus is queried.
+- **Decision:** Nothing to move. `db/init.sql` seeds no documents, and no code path
+  auto-ingests files. `backend/evaluation/golden_queries.json` and
+  `backend/mock_server.py` mention sample filenames but put nothing into the store.
+  I left them untouched; moving them would be a rename, which the rules forbid.
+  The only searchable store is `document_chunks` in a fresh Postgres volume, which
+  will hold only `corpus/*.md`. Verified empty here (`SELECT count(*)` = 0).
+- **Caveats (not changed; would be a behaviour change):**
+  - The Gemini router can send a question to `sql_agent` ("analytical") or
+    `summarize_document` ("summarization"). Both answer from the LLM's own knowledge
+    with **no retrieval**. Such answers come back with empty `chunks`, and the eval
+    will show them as retrieval misses.
+  - Anyone who previously ran the stack has a `pgdata` volume that may hold old chunks.
+    Run `docker compose down -v` first to start from an empty store.
+- **Alternatives considered:** Force the router to "document". Rejected as a feature
+  change; I'm flagging it for the owner instead.
+- **Why:** The rules say do no refactoring and add no features.
+
+---
+
+## D-012 — Task 1: ingest command and manual verification (NOT RUN, needs key)
+
+- **Date:** 2026-11-06
+- **Step:** 1
+- **Context:** I used only the existing `POST /v1/ingest` path (no auth needed). It tries
+  ARQ first; because `worker.py` imports the missing `app.config`, it always falls back
+  to synchronous in-request ingestion (verified in the logs). No worker service exists
+  in compose anyway.
+- **Decision:** Ingest with a shell loop over the API. This is not a new pipeline:
+  ```bash
+  for f in corpus/*.md; do curl -s -F "file=@$f" -F access_level=public http://localhost:8000/v1/ingest; echo; done
+  ```
+  Check every line shows `"chunks_created"` > 0. If embedding fails, the endpoint
+  still returns HTTP 200 with `chunks_created: 0`.
+- **Verified here (no key):** `path-params.md` loaded, then (with semantic splitting
+  unavailable, as in the container) fell back to character chunking: 21 chunks, all
+  validated. It then stopped at embedding, as expected without a key or `tiktoken`
+  download access. Nothing was stored.
+- **Three manual queries (pending, owner to run once the key is set):**
+
+  | # | Query | Expected source | Expected in answer | Outcome |
+  |---|---|---|---|---|
+  | 1 | How do you declare a path parameter with a type in FastAPI? | path-params.md | `item_id: int` style type hints / conversion | NOT RUN — no API key in session |
+  | 2 | How do I enable CORS in a FastAPI app? | cors.md | `CORSMiddleware`, `allow_origins` | NOT RUN — no API key in session |
+  | 3 | How can I run a background task after returning a response? | background-tasks.md | `BackgroundTasks`, `add_task` | NOT RUN — no API key in session |
+
+  Command, after logging in:
+  `curl -s -X POST localhost:8000/v1/query -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' -d '{"query":"...","access_level":"public"}'`
+- **Alternatives considered:** Fake the outcomes. Rejected.
+- **Why:** The owner chose to add the key manually.
+
+---
+
 ## Template (copy below this line for new entries)
 
 ```
